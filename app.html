@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self';
+             script-src 'self';
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+             font-src 'self' https://fonts.gstatic.com;
+             img-src 'self' data: https://*.supabase.co;
+             connect-src 'self' https://*.supabase.co;
+             frame-ancestors 'none';
+             base-uri 'self';
+             form-action 'none';
+             object-src 'none';"
+/>
+<title>BIPAL (Biodata Pengawas Pemilu) — Direktori Publik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./assets/css/styles.css?v=5" />
+</head>
+<body>
+<a class="skip-link" href="#main">Lewati ke konten utama</a>
+
+<header class="appbar">
+  <div class="appbar__inner">
+    <div class="brand">
+      <div class="brand__mark" aria-hidden="true">
+        <img src="./assets/image/logo-bawaslu.webp" alt="Logo Bawaslu" class="brand__logo" width="40" height="40" decoding="async">
+      </div>
+      <div>
+        <h1 class="brand__title" id="appName">BIPAL (Biodata Pengawas Pemilu)</h1>
+        <p class="brand__sub" id="appOrg">Direktori Publik Bawaslu Sulawesi Selatan</p>
+      </div>
+    </div>
+    <div class="appbar__actions">
+      <a class="btn btn--ghost" href="./">← Beranda</a>
+      <button class="btn btn--ghost" id="btnRefresh" type="button" title="Perbarui data langsung dari database">
+        Muat Ulang<span class="btn-text-full"> Data</span>
+      </button>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Navigasi Tampilan">
+    <button class="tab is-active" role="tab" id="tab-overview" aria-controls="view-overview" aria-selected="true" data-view="overview">Ringkasan</button>
+    <button class="tab" role="tab" id="tab-directory" aria-controls="view-directory" aria-selected="false" data-view="directory">Direktori</button>
+  </nav>
+</header>
+
+<main id="main" class="container">
+
+  <section id="stateBox" class="state" aria-live="polite">
+    <div class="spinner" aria-hidden="true"></div>
+    <p id="stateText">Menghubungkan ke basis data publik Bawaslu…</p>
+  </section>
+
+  <!-- Filter Bar (Pencarian, Kab/Kota, dan Jabatan) -->
+  <section id="filterBar" class="panel filterbar" hidden>
+    <div class="field field--grow">
+      <label for="fSearch">Pencarian</label>
+      <input type="search" id="fSearch" placeholder="Cari nama, jabatan, kabupaten/kota…" autocomplete="off" />
+    </div>
+    <div class="field">
+      <label for="fKabkota">Kabupaten / Kota</label>
+      <select id="fKabkota"></select>
+    </div>
+    <div class="field">
+      <label for="fJabatan">Jabatan</label>
+      <select id="fJabatan"></select>
+    </div>
+    <div class="field field--auto">
+      <label>&nbsp;</label>
+      <button class="btn btn--ghost" id="btnReset" type="button">Reset Filter</button>
+    </div>
+  </section>
+
+  <!-- ============ RINGKASAN (PERSIS STRUKTUR PROJECT UTAMA, ZERO SENSITIVE DATA) ============ -->
+  <section class="view" id="view-overview" role="tabpanel" aria-labelledby="tab-overview" data-view="overview" hidden>
+    
+    <!-- Tingkat Provinsi -->
+    <div class="panel__head panel__head--bare" style="margin-bottom: 12px; margin-top: 24px;">
+      <h2 style="font-size: 18px; color: var(--brand-dark);">Tingkat Provinsi</h2>
+    </div>
+    <div class="kpi-grid" id="kpiGridProv" style="margin-bottom: 16px;"></div>
+    
+    <div class="chart-grid chart-grid--split">
+      <article class="panel chart">
+        <header class="panel__head">
+          <h2>Komposisi Jabatan (Provinsi)</h2>
+        </header>
+        <div class="canvas-wrap"><canvas id="chJabatanProv" aria-label="Grafik komposisi jabatan provinsi"></canvas></div>
+      </article>
+
+      <article class="panel chart">
+        <header class="panel__head">
+          <h2>Komposisi Jenis Kelamin (Provinsi)</h2>
+        </header>
+        <div class="canvas-wrap"><canvas id="chGenderProv" aria-label="Grafik komposisi jenis kelamin provinsi"></canvas></div>
+      </article>
+    </div>
+
+    <!-- Tingkat Kabupaten / Kota -->
+    <div class="panel__head panel__head--bare" style="margin-bottom: 12px; margin-top: 36px;">
+      <h2 style="font-size: 18px; color: var(--brand-dark);">Tingkat Kabupaten / Kota</h2>
+    </div>
+    <div class="kpi-grid" id="kpiGridKab" style="margin-bottom: 16px;"></div>
+
+    <div class="chart-grid" style="margin-bottom: 16px;">
+      <article class="panel chart chart--wide">
+        <header class="panel__head">
+          <h2>Sebaran Personel per Kab/Kota</h2>
+          <span class="hint" id="hintKabkota"></span>
+        </header>
+        <div class="canvas-wrap canvas-wrap--tall">
+          <canvas id="chKabkota" aria-label="Grafik sebaran personel per kabupaten atau kota"></canvas>
+        </div>
+      </article>
+    </div>
+
+    <div class="chart-grid chart-grid--split" style="margin-bottom: 16px;">
+      <article class="panel chart">
+        <header class="panel__head">
+          <h2>Komposisi Jenis Kelamin (Kab/Kota)</h2>
+        </header>
+        <div class="canvas-wrap">
+          <canvas id="chGender" aria-label="Grafik komposisi jenis kelamin"></canvas>
+        </div>
+      </article>
+
+      <article class="panel chart">
+        <header class="panel__head">
+          <h2>Distribusi Jabatan (Kabupaten / Kota)</h2>
+        </header>
+        <div class="canvas-wrap">
+          <canvas id="chJabatanKab" aria-label="Grafik distribusi jabatan kabupaten atau kota"></canvas>
+        </div>
+      </article>
+    </div>
+
+    <div class="chart-grid">
+      <article class="panel chart chart--wide">
+        <header class="panel__head">
+          <h2>Distribusi Divisi / Bidang Kerja Pengawasan</h2>
+          <span class="hint">4 Pilar Divisi Teknis Bawaslu</span>
+        </header>
+        <div class="canvas-wrap">
+          <canvas id="chDivisi" aria-label="Grafik distribusi divisi pengawasan bawaslu"></canvas>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ DIREKTORI (PERSIS UI PROJECT UTAMA) ============ -->
+  <section class="view" id="view-directory" role="tabpanel" aria-labelledby="tab-directory" data-view="directory" hidden>
+    <div class="panel__head panel__head--bare">
+      <h2>Direktori Personel <span class="muted" id="dirCount"></span></h2>
+      <div class="seg">
+        <label for="dirSort" class="sr-only">Urutkan</label>
+        <select id="dirSort">
+          <option value="nama">Urut: Nama (A–Z)</option>
+          <option value="kabkota">Urut: Kab/Kota</option>
+          <option value="jabatan">Urut: Jabatan</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- LEVEL 1: GRID KAB/KOTA -->
+    <div id="dirDistrictsView">
+      <div class="dir-grid dir-location-grid" id="dirDistrictsGrid"></div>
+    </div>
+
+    <!-- LEVEL 2: DAFTAR PERSONEL PER KAB/KOTA -->
+    <div id="dirPersonnelView" hidden>
+      <div class="dir-detail-head" style="width:100%; margin:0 0 18px;">
+        <button class="dir-back" id="btnBackToDistricts" type="button" aria-label="Kembali ke daftar Kabupaten/Kota">←</button>
+        <div class="dir-detail-title">
+          <h2 id="breadcrumbTitle">Direktori <span class="muted" id="breadcrumbCount"></span></h2>
+          <p id="breadcrumbSub">Provinsi Sulawesi Selatan · Daftar personel wilayah</p>
+        </div>
+      </div>
+      <div class="dir-grid dir-person-grid" id="dirPersonnelGrid"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Drawer Detail Personel Minimalis (Hanya 4 Data Publik) -->
+<div class="drawer" id="drawer" hidden>
+  <div class="drawer__scrim" data-close></div>
+  <aside class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+    <header class="drawer__head">
+      <h2 id="drawerTitle">Detail Personel</h2>
+      <button class="btn btn--icon" data-close aria-label="Tutup">×</button>
+    </header>
+    <div class="drawer__body" id="drawerBody"></div>
+  </aside>
+</div>
+
+<!-- Modal Team Credit -->
+<div class="lp-modal" id="modalCredit" hidden>
+  <div class="lp-modal-backdrop" data-close-credit></div>
+  <div class="lp-modal-card">
+    <button class="lp-modal-close" data-close-credit aria-label="Tutup Modal">✕</button>
+    <img src="./assets/image/magang.jpeg" alt="Tim Magang Bawaslu Sulsel 2026" class="lp-modal-bg-img">
+
+    <div class="lp-modal-content">
+      <div class="lp-modal-main-text">
+        <h2 id="creditTitle" class="lp-modal-title">
+          Developed by<br>
+          Magang Bawaslu Sulsel 2026
+        </h2>
+      </div>
+
+      <div class="lp-modal-footer-contact">
+        <span class="contact-name-small">Muh. Daryadnan Yurisky Musakkar</span>
+        <span class="contact-dot">&bull;</span>
+        <a href="https://wa.me/6282187671753" target="_blank" rel="noopener" class="contact-phone-plain" title="Hubungi via WhatsApp">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <span>082187671753</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="app-footer">
+  <p style="text-align: center; color: var(--muted); font-size: 13px; margin: 0; display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+    © 2026 Bawaslu Provinsi Sulawesi Selatan &bull; 
+    <button id="btnCredit" class="btn-credit-text" type="button" style="background: none; border: none; padding: 0; font: inherit; color: var(--muted); cursor: pointer; text-decoration: underline;">
+      Developed by Magang Bawaslu Sulsel 2026
+    </button>
+  </p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script type="module" src="./assets/js/app.js?v=5"></script>
+</body>
+</html>

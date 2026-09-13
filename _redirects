@@ -1,3 +1,0 @@
-# Cloudflare Pages / Workers Redirects
-# Alihkan root domain (/) ke /landing.html
-/   /landing.html   302
