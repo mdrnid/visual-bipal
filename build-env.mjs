@@ -69,3 +69,28 @@ fs.writeFileSync(targetFile, fileContent, 'utf-8');
 console.log('[build-env] Sukses memperbarui assets/js/config.js');
 console.log(`[build-env] SUPABASE_URL: ${supabaseUrl}`);
 console.log(`[build-env] SUPABASE_ANON_KEY: ${supabaseAnonKey ? '*** (Tersedia)' : '(Kosong!)'}`);
+
+// Siapkan folder distribusi dist/ untuk Cloudflare Workers / Pages
+const distDir = path.join(__dirname, 'dist');
+if (fs.existsSync(distDir)) {
+    fs.rmSync(distDir, { recursive: true, force: true });
+}
+fs.mkdirSync(distDir, { recursive: true });
+
+// Salin file HTML, CSS, dan Headers ke dist
+const filesToCopy = ['index.html', 'landing.html', 'landing.css', '_headers'];
+for (const file of filesToCopy) {
+    const src = path.join(__dirname, file);
+    if (fs.existsSync(src)) {
+        fs.copyFileSync(src, path.join(distDir, file));
+    }
+}
+
+// Salin direktori assets (termasuk config.js yang baru dihasilkan)
+const assetsSrc = path.join(__dirname, 'assets');
+const assetsDest = path.join(distDir, 'assets');
+if (fs.existsSync(assetsSrc)) {
+    fs.cpSync(assetsSrc, assetsDest, { recursive: true });
+}
+
+console.log('[build-env] Sukses menyiapkan folder distribusi dist/');

@@ -12,16 +12,15 @@ Cloudflare Pages menyediakan hosting statis global berkecepatan tinggi dengan ed
 1. Masuk ke dashboard [Cloudflare](https://dash.cloudflare.com/) → navigasi ke **Workers & Pages** → **Create application** → pilih tab **Pages**.
 2. Pilih **Connect to Git** dan hubungkan ke repository `bipal-publik`.
 3. Pada halaman **Set up builds and deployments**:
-   - **Project name:** `bipal-publik`
+   - **Project name:** `visual-bipal` (atau `bipal-publik`)
    - **Production branch:** `main`
    - **Framework preset:** `None`
-   - **Build command:** `node build-env.mjs` (atau `npm run build`)
-   - **Build output directory:** `/` atau `.` (akar direktori proyek)
-4. Tambahkan variabel lingkungan di bagian **Environment variables**:
+   - **Build command:** `npm run build`
+   - **Build output directory:** `dist`
+4. Tambahkan variabel lingkungan di bagian **Environment variables** / **Build variables**:
    - `SUPABASE_URL`: `https://<id-proyek-supabase-anda>.supabase.co`
    - `SUPABASE_ANON_KEY`: `<kunci-anon-supabase-anda>`
-5. Klik **Save and Deploy**.
-6. Skrip `build-env.mjs` akan membaca Environment Variables tersebut secara otomatis dan menghasilkan `assets/js/config.js`. File `_headers` juga otomatis diterapkan oleh Cloudflare untuk Content Security Policy (CSP).
+5. Skrip `build-env.mjs` akan membaca Environment Variables tersebut, memperbarui `assets/js/config.js`, dan menyiapkan folder bersih `dist/` untuk dideploy oleh Cloudflare.
 
 ---
 
