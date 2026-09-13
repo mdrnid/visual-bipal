@@ -77,8 +77,8 @@ if (fs.existsSync(distDir)) {
 }
 fs.mkdirSync(distDir, { recursive: true });
 
-// Salin file HTML, CSS, dan Headers ke dist
-const filesToCopy = ['index.html', 'landing.html', 'landing.css', '_headers'];
+// Salin file HTML, CSS, Headers, dan Redirects ke dist
+const filesToCopy = ['index.html', 'landing.html', 'landing.css', '_headers', '_redirects'];
 for (const file of filesToCopy) {
     const src = path.join(__dirname, file);
     if (fs.existsSync(src)) {
