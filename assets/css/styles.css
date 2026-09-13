@@ -150,7 +150,7 @@ code {
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 4px 20px rgba(15, 39, 71, .25);
+    box-shadow: 0 4px 16px rgba(15, 39, 71, .18);
 }
 
 .appbar__inner {
@@ -159,15 +159,52 @@ code {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 24px;
-    min-height: 68px;
-    gap: 16px;
+    padding: 10px 20px;
+    min-height: 56px;
+    gap: 12px;
+}
+
+@media (max-width: 860px) {
+    .appbar__inner {
+        padding: 8px 16px;
+        min-height: 50px;
+        gap: 8px;
+    }
+    .brand__sub {
+        display: none !important;
+    }
+    .brand {
+        gap: 10px;
+    }
+    .brand__logo {
+        height: 32px;
+        width: 32px;
+    }
+    .brand__mark {
+        width: 36px;
+        height: 36px;
+    }
+    .brand__title {
+        font-size: 14.5px;
+    }
 }
 
 @media (max-width: 640px) {
     .appbar__inner {
-        padding: 10px 14px;
-        min-height: 56px;
+        padding: 6px 12px;
+        min-height: 46px;
+        gap: 6px;
+    }
+    .brand__title {
+        font-size: 13.5px;
+    }
+    .appbar__actions .btn {
+        padding: 6px 9px;
+        font-size: 12px;
+        min-height: 36px;
+    }
+    .btn-text-full {
+        display: none;
     }
 }
 
@@ -178,19 +215,12 @@ code {
     flex-shrink: 0;
 }
 
-@media (max-width: 640px) {
-    .appbar__actions .btn {
-        padding: 8px 12px;
-        font-size: 13px;
-    }
-}
-
 /* Logo & Brand */
 .brand {
     display: flex;
     align-items: center;
     gap: 14px;
-    flex-shrink: 0;
+    min-width: 0;
 }
 
 .brand__logo {
@@ -198,39 +228,27 @@ code {
     width: 40px;
     object-fit: contain;
     filter: brightness(0) invert(1);
-}
-
-@media (max-width: 640px) {
-    .brand__logo {
-        height: 32px;
-        width: 32px;
-    }
+    flex-shrink: 0;
 }
 
 .brand__title {
-    font-size: 17px;
+    font-size: 16.5px;
     font-weight: 700;
     line-height: 1.2;
     margin: 0;
     color: #FFFFFF;
-}
-
-@media (max-width: 640px) {
-    .brand__title {
-        font-size: 14px;
-    }
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .brand__sub {
     font-size: 12px;
-    color: rgba(255, 255, 255, .65);
+    color: rgba(255, 255, 255, .75);
     margin-top: 2px;
-}
-
-@media (max-width: 640px) {
-    .brand__sub {
-        display: none;
-    }
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .brand__mark {
@@ -242,29 +260,53 @@ code {
     color: #fff;
     font-weight: 700;
     letter-spacing: .5px;
+    flex-shrink: 0;
 }
 
 /* ==================== TABS ==================== */
 .tabs {
     display: flex;
     gap: 6px;
-    padding: 0 24px 14px;
+    padding: 0 20px 10px;
     margin: 0;
     overflow-x: auto;
-    scrollbar-width: thin;
+    scrollbar-width: none;
     background: transparent;
+}
+
+.tabs::-webkit-scrollbar {
+    display: none;
+}
+
+@media (max-width: 860px) {
+    .tabs {
+        padding: 0 16px 8px;
+        gap: 4px;
+    }
+    .tab {
+        height: 32px !important;
+        min-width: 80px;
+        padding: 0 14px !important;
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .tabs {
+        padding: 0 12px 6px;
+    }
 }
 
 .tab {
     min-width: 100px;
-    height: 36px;
+    height: 34px;
     padding: 0 18px;
     border-radius: 999px;
     font-size: 13px;
     font-weight: 600;
-    border: 1px solid rgba(255, 255, 255, .15);
-    background: rgba(255, 255, 255, .08);
-    color: rgba(255, 255, 255, .7);
+    border: 1px solid rgba(255, 255, 255, .18);
+    background: rgba(255, 255, 255, .10);
+    color: rgba(255, 255, 255, .8);
     cursor: pointer;
     transition: var(--transition);
     white-space: nowrap;
@@ -1287,7 +1329,7 @@ td.td-sorted {
 .drawer {
     position: fixed;
     inset: 0;
-    z-index: 60;
+    z-index: 500;
 }
 
 .drawer__scrim {
@@ -1380,7 +1422,7 @@ td.td-sorted {
     left: 50%;
     bottom: 26px;
     transform: translateX(-50%);
-    z-index: 80;
+    z-index: 600;
     background: var(--brand-dark);
     color: #fff;
     padding: 12px 20px;
