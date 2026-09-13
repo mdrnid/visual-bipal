@@ -1,0 +1,14 @@
+{
+  "name": "bipal-publik",
+  "version": "1.0.0",
+  "description": "Direktori Publik Biodata Pengawas Pemilu Bawaslu Sulawesi Selatan",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build-env.mjs",
+    "preview": "npx serve ."
+  },
+  "keywords": ["bawaslu", "bipal", "publik", "cloudflare-pages"],
+  "author": "Magang Bawaslu Sulsel 2026",
+  "license": "MIT"
+}

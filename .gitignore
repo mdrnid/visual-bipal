@@ -1,0 +1,26 @@
+# BIPAL Publik - Git Ignore
+
+# Environment & Secrets
+.env
+.env.*
+*.secret
+assets/js/config.js
+
+# Dependencies & Build artifacts (pure static repo)
+node_modules/
+dist/
+build/
+.cache/
+
+# Foto lokal & dokumen bukti (DILARANG masuk publik - foto dilayani Supabase Storage)
+assets/personel/
+assets/personel/*
+assets/awards/
+assets/awards/*
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log

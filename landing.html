@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               script-src 'self';
+               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+               font-src 'self' https://fonts.gstatic.com;
+               img-src 'self' data: https://*.supabase.co;
+               connect-src 'self' https://*.supabase.co;
+               frame-ancestors 'none';
+               base-uri 'self';
+               form-action 'none';
+               object-src 'none';"
+  />
+  <meta name="description" content="BIPAL Publik - Direktori Biodata Pengawas Pemilu Bawaslu Sulawesi Selatan">
+  <title>BIPAL (Biodata Pengawas Pemilu) — Bawaslu Sulawesi Selatan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./landing.css">
+</head>
+<body>
+  <header class="lp-nav">
+    <a class="lp-brand" href="./landing.html" aria-label="Beranda Bawaslu">
+      <img src="./assets/image/logo-bawaslu.webp" alt="Logo Bawaslu" width="40" height="40">
+      <div>
+        <strong>BIPAL</strong>
+        <span>Biodata Pengawas Pemilu</span>
+      </div>
+    </a>
+
+    <nav class="lp-links" aria-label="Navigasi utama">
+      <a href="#tentang">Tentang</a>
+      <a href="#fitur">Fitur</a>
+      <a href="#data">Data</a>
+      <a class="lp-nav-cta" href="./index.html">Buka Direktori →</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">DIREKTORI PUBLIK RESMI</span>
+        <h1>Kenali Pengawas Pemilu<br><em>Lebih Cepat & Terbuka.</em></h1>
+        <p>
+          Akses informasi publik personel Bawaslu se-Sulawesi Selatan dalam satu platform
+          yang ringkas, transparan, dan mudah digunakan.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="./index.html">Jelajahi BIPAL <span>→</span></a>
+          <a class="btn btn-secondary" href="#tentang">Pelajari Sistem</a>
+        </div>
+
+        <div class="hero-note">
+          <span class="status-dot"></span>
+          Data tersinkronisasi langsung dari database resmi Bawaslu
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Ringkasan data personel">
+        <div class="visual-orb orb-one"></div>
+        <div class="visual-orb orb-two"></div>
+
+        <div class="data-card card-main">
+          <div class="data-card-top">
+            <span>PERSONEL TERDATA</span>
+            <span class="mini-badge">LIVE DATA</span>
+          </div>
+          <strong data-stat="personel-hero">–</strong>
+          <p>Pengawas Pemilu Aktif</p>
+          <div class="mini-bars">
+            <i style="--h: 45%"></i>
+            <i style="--h: 62%"></i>
+            <i style="--h: 52%"></i>
+            <i style="--h: 78%"></i>
+            <i style="--h: 68%"></i>
+            <i style="--h: 90%"></i>
+            <i style="--h: 74%"></i>
+          </div>
+        </div>
+
+        <div class="data-card card-small small-one">
+          <span>Wilayah</span>
+          <strong data-stat="kabkota">–</strong>
+          <small>Kab / Kota</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats" id="data">
+      <div><strong data-stat="personel">–</strong><span>Personel Terdata</span></div>
+      <div><strong data-stat="kabkota">–</strong><span>Kabupaten / Kota</span></div>
+      <div><strong data-stat="jabatan">–</strong><span>Posisi Jabatan</span></div>
+    </section>
+
+    <section class="section about" id="tentang">
+      <div class="section-label">01 — TENTANG</div>
+      <div>
+        <h2>Satu pintu keterbukaan informasi personel.</h2>
+        <p>
+          BIPAL Publik dirancang sebagai media transparansi profil pengawas pemilu
+          di Sulawesi Selatan. Publik dapat menelusuri data personel berdasarkan
+          kabupaten/kota asal, jabatan, dan foto resmi dengan cepat.
+        </p>
+      </div>
+    </section>
+
+    <section class="section features" id="fitur">
+      <div class="section-label">02 — FITUR UTAMA</div>
+      <div class="feature-grid">
+        <article>
+          <span class="feature-number">01</span>
+          <h3>Direktori 2 Tingkat</h3>
+          <p>Jelajahi personel berdasarkan wilayah kabupaten/kota secara terstruktur dan mudah dinavigasi.</p>
+        </article>
+        <article>
+          <span class="feature-number">02</span>
+          <h3>Pencarian Cepat</h3>
+          <p>Temukan nama pengawas, posisi jabatan, atau wilayah tugas hanya dalam hitungan detik.</p>
+        </article>
+        <article>
+          <span class="feature-number">03</span>
+          <h3>Statistik Ringkasan</h3>
+          <p>Pantau ringkasan jumlah personel dan sebaran wilayah melalui grafik interaktif.</p>
+        </article>
+        <article>
+          <span class="feature-number">04</span>
+          <h3>Ringan & Aman</h3>
+          <p>Situs web statis berkecepatan tinggi dengan proteksi privasi dan data publik resmi.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div>
+        <span class="eyebrow">SIAP MENJELAJAHI DATA?</span>
+        <h2>Mulai dari direktori wilayah.</h2>
+        <p>Temukan personel Bawaslu berdasarkan kabupaten/kota dalam beberapa klik.</p>
+      </div>
+      <a class="btn btn-light" href="./index.html?#/direktori">Buka Direktori →</a>
+    </section>
+  </main>
+
+  <footer class="lp-footer">
+    <p class="copyright-text">
+      © 2026 Bawaslu Provinsi Sulawesi Selatan &bull; 
+      <button id="btnCreditLanding" class="btn-credit-text" type="button" title="Klik untuk informasi pengembang & kontak teknis">
+        Developed by Magang Bawaslu Sulsel 2026
+      </button>
+    </p>
+  </footer>
+
+  <!-- Modal Developed By / Tim Magang Bawaslu -->
+  <div class="lp-modal" id="modalCreditLanding" hidden aria-hidden="true">
+    <div class="lp-modal-backdrop" id="closeModalCreditLanding"></div>
+    <div class="lp-modal-card">
+      <button class="lp-modal-close" id="btnCloseModalCreditLanding" aria-label="Tutup Modal">✕</button>
+      <img src="./assets/image/magang.jpeg" alt="Tim Magang Bawaslu Sulsel 2026" class="lp-modal-bg-img">
+
+      <div class="lp-modal-content">
+        <div class="lp-modal-main-text">
+          <h2 class="lp-modal-title">
+            Developed by<br>
+            Magang Bawaslu Sulsel 2026
+          </h2>
+        </div>
+
+        <div class="lp-modal-footer-contact">
+          <span class="contact-name-small">Muh. Daryadnan Yurisky Musakkar</span>
+          <span class="contact-dot">&bull;</span>
+          <a href="https://wa.me/6282187671753" target="_blank" rel="noopener" class="contact-phone-plain" title="Hubungi via WhatsApp">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>082187671753</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./assets/js/landing.js"></script>
+</body>
+</html>
