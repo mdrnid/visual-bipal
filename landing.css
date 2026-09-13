@@ -427,31 +427,227 @@ a{text-decoration:none;color:inherit}
   box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35);
 }
 
-@media(max-width:900px){
-  .lp-links a:not(.lp-nav-cta){display:none}
-  .hero{grid-template-columns:1fr;padding-top:60px}
-  .hero-visual{min-height:420px}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .stats div:nth-child(2){border-right:0}
-  .stats div:nth-child(-n+2){border-bottom:1px solid var(--line)}
-  .about{grid-template-columns:1fr;gap:20px}
-  .feature-grid{grid-template-columns:repeat(2,1fr)}
-  .cta{flex-direction:column;align-items:flex-start}
+/* ==========================================================================
+   RESPONSIVE DESIGN (Skill: responsive-design)
+   Skala Breakpoint: Mobile (<640px), Tablet (640-1024px), Desktop (>1024px)
+   ========================================================================== */
+
+/* Tablet & iPad (<= 1024px) */
+@media (max-width: 1024px) {
+  .hero {
+    gap: 36px;
+    padding: 60px 4vw;
+  }
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .about {
+    gap: 36px;
+  }
 }
-@media(max-width:560px){
-  .lp-nav{padding:0 20px}
-  .lp-nav-cta{padding:10px 12px}
-  .hero{padding-left:20px;padding-right:20px}
-  .hero h1{font-size:44px}
-  .hero-copy>p{font-size:16px}
-  .hero-visual{min-height:360px}
-  .card-main{width:78%}
-  .small-one{right:-5px}
-  .small-two{left:-5px}
-  .stats{margin:0 20px;grid-template-columns:1fr 1fr}
-  .stats div{padding:20px 16px}
-  .section{padding:70px 20px}
-  .feature-grid{grid-template-columns:1fr}
-  .cta{margin:0 20px 50px;padding:35px 28px}
-  .lp-footer-container{flex-direction:column;align-items:center;text-align:center}
+
+/* Tablet Portrait & Large Phones (<= 900px) */
+@media (max-width: 900px) {
+  .lp-links a:not(.lp-nav-cta) {
+    display: none;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 50px 5vw 40px;
+    text-align: center;
+  }
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero h1 {
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-actions {
+    justify-content: center;
+  }
+  .hero-note {
+    justify-content: center;
+  }
+  .hero-visual {
+    min-height: 400px;
+    max-width: 520px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .stats {
+    margin: 0 5vw;
+    /* Tetap 3 kolom simetris pada tablet dengan font fluid */
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .stats div {
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .about {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+  .about h2, .about p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 44px 32px;
+  }
+}
+
+/* Small Tablets & Phablets (<= 640px) */
+@media (max-width: 640px) {
+  .stats {
+    /* Pada layar sempit, tumpuk 3 kartu atau jadikan grid 3 kolom yang proporsional */
+    grid-template-columns: 1fr;
+    transform: translateY(-10px);
+  }
+  .stats div {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    text-align: left;
+  }
+  .stats div:last-child {
+    border-bottom: none;
+  }
+  .stats strong {
+    font-size: clamp(24px, 6vw, 32px);
+    order: 2;
+  }
+  .stats span {
+    order: 1;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .section {
+    padding: 60px 5vw;
+  }
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+  .feature-grid article {
+    min-height: auto;
+    padding: 24px;
+  }
+  .feature-grid h3 {
+    margin: 24px 0 8px;
+  }
+}
+
+/* Mobile Screens (<= 480px) - iPhone SE, Android 360-414px */
+@media (max-width: 480px) {
+  .lp-nav {
+    padding: 0 16px;
+    height: 70px;
+  }
+  .lp-brand strong {
+    font-size: 15px;
+  }
+  .lp-brand span {
+    font-size: 11px;
+  }
+  .lp-brand img {
+    width: 36px;
+    height: 36px;
+  }
+  .lp-nav-cta {
+    padding: 10px 14px;
+    font-size: 13px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .hero {
+    padding: 36px 16px 30px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 8.5vw, 38px);
+    letter-spacing: -0.04em;
+  }
+  .hero-copy > p {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .hero-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    min-height: 48px;
+  }
+  .hero-visual {
+    min-height: 340px;
+  }
+  .card-main {
+    width: 82%;
+    padding: 20px;
+  }
+  .card-main > strong {
+    font-size: clamp(52px, 14vw, 70px);
+    margin: 20px 0 2px;
+  }
+  .mini-bars {
+    height: 70px;
+    margin-top: 18px;
+  }
+  .card-small {
+    width: 130px;
+    padding: 14px;
+  }
+  .card-small strong {
+    font-size: 26px;
+  }
+  .small-one {
+    right: -4px;
+    top: 4%;
+  }
+  .small-two {
+    left: -4px;
+    bottom: 4%;
+  }
+  .stats {
+    margin: 0 16px;
+  }
+  .cta {
+    margin: 0 16px 50px;
+    padding: 32px 20px;
+    border-radius: 20px;
+  }
+  .cta h2 {
+    font-size: clamp(24px, 7vw, 32px);
+  }
+  .cta .btn {
+    width: 100%;
+    min-height: 48px;
+  }
+  .lp-modal-card {
+    width: min(94vw, 380px);
+    max-height: 90dvh;
+  }
+  .lp-modal-close {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Touch-friendly interactive targets for mobile */
+@media (pointer: coarse) {
+  .btn, .lp-nav-cta, .contact-phone-btn, .lp-modal-close {
+    min-height: 44px;
+  }
 }

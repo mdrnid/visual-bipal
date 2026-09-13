@@ -652,15 +652,16 @@ input:focus, select:focus {
 /* ==================== KPI CARDS ==================== */
 .kpi-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
     gap: 14px;
     margin-bottom: 24px;
+    container-type: inline-size;
 }
 
 .kpi {
     background: var(--grad-card);
     border-radius: var(--radius);
-    padding: 22px 22px 22px 22px;
+    padding: clamp(14px, 3vw, 22px);
     border: 1px solid var(--line);
     box-shadow: var(--shadow-sm);
     position: relative;
@@ -703,11 +704,12 @@ input:focus, select:focus {
 }
 
 .kpi__value {
-    margin: 8px 0 4px;
-    font-size: 30px;
+    margin: 6px 0 4px;
+    font-size: clamp(22px, 5vw, 32px);
     font-weight: 800;
     letter-spacing: -.02em;
     color: var(--brand);
+    line-height: 1.15;
 }
 
 .kpi__hint {
@@ -727,18 +729,19 @@ input:focus, select:focus {
 /* ==================== CHARTS ==================== */
 .chart-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
     gap: 16px;
 }
 
 .chart-grid--split {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
     gap: 16px;
     margin-top: 16px;
 }
 
 @media (max-width: 768px) {
+    .chart-grid,
     .chart-grid--split {
         grid-template-columns: 1fr !important;
     }
@@ -1582,6 +1585,7 @@ td.td-sorted {
     inset: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
+    height: 100dvh !important;
     max-width: none !important;
     max-height: none !important;
     margin: 0 !important;
@@ -1594,6 +1598,7 @@ td.td-sorted {
     inset: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
+    height: 100dvh !important;
     background: rgba(0, 0, 0, 0.5);
 }
 
@@ -1602,6 +1607,7 @@ td.td-sorted {
     width: 100vw !important;
     max-width: none !important;
     height: 100vh !important;
+    height: 100dvh !important;
     max-height: none !important;
     margin: 0 !important;
     border-radius: 0 !important;
@@ -1729,41 +1735,6 @@ td.td-sorted {
     color: var(--muted);
 }
 
-/* ==================== RESPONSIVE BREAKPOINTS ==================== */
-@media (max-width: 720px) {
-    .appbar__inner {
-        padding: 12px 14px;
-    }
-    
-    .container {
-        padding: 16px 14px 48px;
-    }
-    
-    .filterbar {
-        padding: 18px;
-        gap: 9px;
-    }
-    
-    .dl__row {
-        grid-template-columns: 1fr;
-    }
-    
-    .dir-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .chart-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .modal--add-data .modal__body {
-        padding: 20px 16px 80px !important;
-    }
-    
-    .modal--add-data .modal__footer {
-        padding: 16px !important;
-    }
-}
 
 /* ==================== PRINT STYLES ==================== */
 @media print {
@@ -1923,41 +1894,319 @@ td.td-sorted {
     color: var(--muted);
 }
 
-/* ==================== RESPONSIVE BREAKPOINTS ==================== */
-@media (max-width: 720px) {
-    .appbar__inner {
-        padding: 12px 14px;
+/* ==========================================================================
+   RESPONSIVE DESIGN SYSTEM (Skill: responsive-design)
+   Standar: Mobile-First, Container Queries, Fluid Typography, Touch Target 44px
+   ========================================================================== */
+
+/* Prevent unintended horizontal overflow */
+html, body {
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+/* Container Query Contexts for Modular Components */
+.kpi-grid,
+.chart-grid,
+.dir-grid,
+.dir-location-grid,
+.dir-person-grid {
+    container-type: inline-size;
+}
+
+.person,
+#view-directory .dir-location-card,
+#view-directory .dir-person-card {
+    container-type: inline-size;
+    container-name: card;
+}
+
+@container card (min-width: 340px) {
+    .dir-person-name {
+        font-size: 16px;
     }
-    
+    .dir-location-name {
+        font-size: 21px;
+    }
+}
+
+/* ---------- 1. Large Tablets & Small Laptops (<= 1024px) ---------- */
+@media (max-width: 1024px) {
     .container {
-        padding: 16px 14px 48px;
+        padding: 20px 20px 60px;
     }
     
     .filterbar {
-        padding: 18px;
-        gap: 9px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        padding: 16px;
     }
-    
-    .dl__row {
-        grid-template-columns: 1fr;
+
+    .filterbar .field--grow {
+        grid-column: 1 / -1;
     }
-    
-    .dir-grid {
-        grid-template-columns: 1fr;
+
+    .filterbar .field--auto {
+        grid-column: 1 / -1;
     }
-    
-    .chart-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .modal--add-data .modal__body {
-        padding: 20px 16px 80px !important;
-    }
-    
-    .modal--add-data .modal__footer {
-        padding: 16px !important;
+
+    .filterbar .field--auto button {
+        width: 100%;
     }
 }
+
+/* ---------- 2. Tablets & iPads (<= 768px) ---------- */
+@media (max-width: 768px) {
+    .appbar__inner {
+        padding: 12px 18px;
+    }
+
+    .tabs {
+        padding: 0 18px 12px;
+    }
+
+    .chart-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .canvas-wrap {
+        height: 260px;
+        padding: 12px 14px 16px;
+    }
+
+    .canvas-wrap--tall {
+        height: 300px;
+    }
+
+    .dir-grid {
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+        gap: 12px;
+    }
+
+    .dl__row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .modal--add-data .modal__body {
+        padding: 20px 18px 80px !important;
+    }
+}
+
+/* ---------- 3. Phablets & Mobile Devices (<= 640px) ---------- */
+@media (max-width: 640px) {
+    .container {
+        padding: 14px 14px 48px;
+    }
+
+    .appbar__inner {
+        padding: 10px 14px;
+        min-height: 56px;
+    }
+
+    .brand__title {
+        font-size: clamp(14px, 3.8vw, 16px);
+    }
+
+    .tabs {
+        padding: 0 14px 10px;
+    }
+
+    .tab {
+        padding: 8px 14px;
+        font-size: 13px;
+        min-height: 44px;
+    }
+
+    .filterbar {
+        grid-template-columns: 1fr;
+        padding: 14px;
+        gap: 12px;
+        border-radius: 14px;
+    }
+
+    .kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .dir-detail-head {
+        padding: 12px 14px !important;
+        gap: 10px !important;
+        border-radius: 14px !important;
+    }
+
+    .dir-detail-title h2 {
+        font-size: 17px !important;
+    }
+
+    .dir-back {
+        min-width: 44px !important;
+        height: 44px !important;
+    }
+}
+
+/* ---------- 4. Small Mobile Phones (<= 480px, e.g. iPhone SE, 360-414px) ---------- */
+@media (max-width: 480px) {
+    .appbar__inner {
+        padding: 8px 10px;
+        gap: 8px;
+    }
+
+    .brand {
+        gap: 8px;
+    }
+
+    .brand__logo {
+        width: 32px;
+        height: 32px;
+    }
+
+    .brand__title {
+        font-size: 13.5px;
+    }
+
+    .appbar__actions {
+        gap: 5px;
+    }
+
+    .appbar__actions .btn {
+        padding: 6px 9px;
+        font-size: 12px;
+        min-height: 38px;
+    }
+
+    .container {
+        padding: 10px 10px 40px;
+    }
+
+    .tabs {
+        padding: 0 10px 8px;
+        gap: 4px;
+    }
+
+    .tab {
+        padding: 6px 12px;
+        font-size: 12.5px;
+        min-height: 42px;
+    }
+
+    .kpi-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .kpi {
+        padding: 12px 10px;
+        border-radius: 12px;
+    }
+
+    .kpi__label {
+        font-size: 10px;
+        letter-spacing: .04em;
+    }
+
+    .kpi__value {
+        font-size: 22px;
+    }
+
+    .kpi__hint {
+        font-size: 11px;
+    }
+
+    .filterbar {
+        padding: 12px 10px;
+        border-radius: 12px;
+    }
+
+    .field input,
+    .field select {
+        min-height: 44px;
+        font-size: 14px;
+    }
+
+    .chart-grid {
+        gap: 12px;
+    }
+
+    .panel.chart {
+        border-radius: 14px;
+    }
+
+    .panel__head {
+        padding: 12px 14px;
+    }
+
+    .panel__head h2 {
+        font-size: 15px;
+    }
+
+    .canvas-wrap {
+        height: 230px;
+        padding: 10px 10px 14px;
+    }
+
+    #view-directory .dir-location-card {
+        padding: 16px 14px;
+        min-height: 150px;
+        border-radius: 14px;
+    }
+
+    #view-directory .dir-location-name {
+        font-size: 17px;
+    }
+
+    #view-directory .dir-person-card {
+        padding: 14px 12px;
+        border-radius: 14px;
+    }
+
+    #view-directory .dir-person-name {
+        font-size: 14.5px;
+    }
+
+    /* Drawer full width di mobile dengan 100dvh */
+    .drawer__panel {
+        width: 100% !important;
+        height: 100dvh !important;
+        max-height: 100dvh !important;
+    }
+
+    .drawer__head {
+        padding: 14px 14px;
+    }
+
+    .drawer__body {
+        padding: 14px;
+    }
+
+    .lp-modal-card {
+        width: min(94vw, 360px);
+        max-height: 88dvh;
+    }
+
+    .lp-modal-content {
+        padding: 44px 20px 24px;
+        min-height: 380px;
+    }
+
+    .lp-modal-title {
+        font-size: 24px;
+    }
+}
+
+/* Touch Device Target Optimization (WCAG AAA - min 44px) */
+@media (pointer: coarse) {
+    .btn,
+    .tab,
+    .dir-back,
+    .field input,
+    .field select,
+    .btn-credit-text {
+        min-height: 44px;
+    }
+}
+
 
 /* ==================== PRINT STYLES ==================== */
 @media print {
